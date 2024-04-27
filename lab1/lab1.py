@@ -14,13 +14,10 @@ def task1():
         else:
             return 5 * np.abs(0.7 * np.cos(x) + np.sin(x))
 
-    # Define x values for plotting
     x = np.linspace(-2, 2, 100)
-    # Calculate y and z values
     y = [y_function(val) for val in x]
     z = [z_function(val) for val in x]
 
-    # Create the plot
     plt.figure(figsize=(8, 6))
     plt.plot(x, y, label='y = ((1+(x+5)^(1/3))/(1+√(2+x+x^2))')
     plt.plot(x, z, label='z based on condition')

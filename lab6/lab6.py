@@ -3,8 +3,6 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import random
 from collections import deque
-
-# Функція для створення графа структури файлів та каталогів з контрольованою глибиною
 def build_graph(directory, max_depth=None):
     graph = nx.DiGraph()
     color_map = {}
@@ -12,8 +10,6 @@ def build_graph(directory, max_depth=None):
 
     while stack:
         current_path, level = stack.pop()
-
-        # Обмеження на глибину рекурсії
         if max_depth is not None and level > max_depth:
             continue
 
@@ -35,10 +31,8 @@ def build_graph(directory, max_depth=None):
 
     return graph, color_map
 
-
-# Вкажіть вихідний каталог
-root_directory = "E:/projects/DeviceTemplateEditor/trunk/src/UI/images/"  # Змініть на вашу папку
-max_depth = 5  # Змініть це значення, щоб обмежити глибину побудови графа
+root_directory = "E:/projects/DeviceTemplateEditor/trunk/src/UI/images/"
+max_depth = 5
 
 # Побудова графа
 G, color_map = build_graph(root_directory, max_depth)

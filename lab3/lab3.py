@@ -3,14 +3,11 @@ import numpy as np
 
 
 def task1():
-    # Визначення діапазонів x та y
     x = np.linspace(-np.pi / 2, np.pi / 2, 100)
     y = np.linspace(-np.pi / 2, np.pi / 2, 100)
 
-    # Створення сітки для побудови скалярного поля
     X, Y = np.meshgrid(x, y)
 
-    # Обчислення значень скалярного поля u(x, y)
     U = np.arcsin((2 * Y) / ((X ** 2) + (Y ** 2)))
 
     # Побудова контурів скалярного поля
@@ -26,7 +23,6 @@ def task1():
     du_dx = -((4 * X * Y) / (((X ** 2) + (Y ** 2)) ** 2))
     du_dy = (2 * (X ** 2 - Y ** 2) / (((X ** 2) + (Y ** 2)) ** 2))
 
-    # Побудова плоского векторного поля для градієнта
     plt.figure(figsize=(8, 6))
     plt.quiver(X, Y, du_dx, du_dy, color='black')
     plt.title("Візуалізація градієнта скалярного поля як векторного поля")
@@ -38,18 +34,13 @@ def task1():
 
 
 def task2():
-    # Визначення діапазону значень x та y
-    x = np.linspace(-11, 11, 20)  # Вибір кількості точок у діапазоні
+    x = np.linspace(-11, 11, 20)
     y = np.linspace(-11, 11, 20)
 
-    # Створення сітки для побудови векторного поля
     X, Y = np.meshgrid(x, y)
-
-    # Визначення компонентів векторного поля F = (2xy - y; x^2 + x)
     Fx = 2 * X * Y - Y
     Fy = X ** 2 + X
 
-    # Побудова векторного поля
     plt.figure(figsize=(10, 6))
     plt.quiver(X, Y, Fx, Fy, color='b', label='F = (2xy - y; x^2 + x)')
     plt.title("Векторне поле за допомогою векторів")
@@ -59,7 +50,6 @@ def task2():
     plt.legend()
     plt.show()
 
-    # Побудова ліній току для векторного поля
     plt.figure(figsize=(10, 6))
     plt.streamplot(X, Y, Fx, Fy, color='r', density=1.0)  # Додатковий параметр density контролює щільність ліній
     plt.title("Векторне поле за допомогою ліній току")
@@ -71,27 +61,22 @@ def task2():
 
 
 def task3():
-    # Визначення діапазонів значень x, y та z
     x = np.linspace(-11, 11, 20)
     y = np.linspace(-11, 11, 20)
     z = np.linspace(-11, 11, 20)
 
-    # Створення 3D-сітки для побудови векторного поля
     X, Y, Z = np.meshgrid(x, y, z)
 
-    # Визначення компонентів векторного поля F = ((((2x)/(y))+1); ((x^2)/(y^2)); -6 * z^2)
     Fx = ((2 * X) / Y) + 1
     Fy = (X ** 2) / (Y ** 2)
     Fz = -6 * (Z ** 2)
 
-    # Побудова векторного поля
     fig = plt.figure(figsize=(10, 8))
     ax = fig.add_subplot(111, projection='3d')
 
     ax.quiver(X, Y, Z, Fx, Fy, Fz, length=1, normalize=True,
               color='b')
 
-    # Налаштування осей та заголовка
     ax.set_title("Тривимірна візуалізація векторного поля")
     ax.set_xlabel("X-axis")
     ax.set_ylabel("Y-axis")
@@ -105,10 +90,8 @@ def task4():
     import matplotlib.pyplot as plt
     from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
-    # Значення epsilon для уникнення ділення на нуль
     epsilon = 1e-6
 
-    # Функція для створення 3D сітки та тензорного поля
     def create_3d_mesh():
         x = np.linspace(-5, 5, 5)
         y = np.linspace(-5, 5, 5)
@@ -125,7 +108,6 @@ def task4():
             [0, 0, (np.cos(x + z) / sq)]
         ], dtype=np.float64)
 
-    # Функція для створення еліпсоїдів
     def create_ellipsoid(center, eigenvalues, eigenvectors, scale=1.0):
         radii = scale * np.sqrt(np.abs(eigenvalues))
         phi = np.linspace(0, 2 * np.pi, 100)
@@ -144,7 +126,6 @@ def task4():
 
         return coord
 
-    # Функція для створення кубоїдів
     def create_cuboid(center, eigenvalues, eigenvectors, scale=1.0):
         radii = scale * np.sqrt(np.abs(eigenvalues))
         vertices = np.array([
@@ -166,7 +147,6 @@ def task4():
 
         return faces
 
-    # Функція для створення циліндрів
     def create_cylinder(center, eigenvalues, eigenvectors, scale=1.0, height=1.0):
         radius = scale * np.sqrt(np.abs(eigenvalues[0]))
         phi = np.linspace(0, 2 * np.pi, 100)
@@ -194,7 +174,6 @@ def task4():
 
     fig = plt.figure(figsize=(12, 12))
 
-    # Субграфік для еліпсоїдів
     ax1 = fig.add_subplot(131, projection='3d')
     for ellipsoid in ellipsoids:
         ax1.add_collection3d(Poly3DCollection(ellipsoid.T, alpha=0.3, facecolor='c'))
@@ -203,7 +182,6 @@ def task4():
     ax1.set_zlabel("Z-axis")
     ax1.set_title("Тривимірна візуалізація еліпсоїдів")
 
-    # Субграфік для кубоїдів
     ax2 = fig.add_subplot(132, projection='3d')
     for cuboid in cuboids:
         ax2.add_collection3d(Poly3DCollection(cuboid, alpha=0.3, facecolor='c'))
@@ -212,7 +190,6 @@ def task4():
     ax2.set_zlabel("Z-axis")
     ax2.set_title("Тривимірна візуалізація кубоїдів")
 
-    # Субграфік для циліндрів
     ax3 = fig.add_subplot(133, projection='3d')
     for cylinder in cylinders:
         ax3.add_collection3d(Poly3DCollection(cylinder.T, alpha=0.3, facecolor='c'))
