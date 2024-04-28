@@ -35,6 +35,7 @@ def init():
     sphere3d.set_3d_properties([])
     return circle2d, sphere3d
 
+
 def update(frame):
     circle2d.set_data([x2d[frame]], [y2d[frame]])
     sphere3d.set_data([x3d[frame]], [y3d[frame]])

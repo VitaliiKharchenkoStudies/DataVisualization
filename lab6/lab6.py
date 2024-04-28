@@ -3,6 +3,8 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import random
 from collections import deque
+
+
 def build_graph(directory, max_depth=None):
     graph = nx.DiGraph()
     color_map = {}
@@ -16,7 +18,6 @@ def build_graph(directory, max_depth=None):
         current_name = os.path.basename(current_path)
         graph.add_node(current_path, label=current_name, level=level)
 
-        # Генерація кольору для кожного рівня
         if level not in color_map:
             color_map[level] = "#{:06x}".format(random.randint(0, 0xFFFFFF))
 
@@ -31,13 +32,12 @@ def build_graph(directory, max_depth=None):
 
     return graph, color_map
 
+
 root_directory = "E:/projects/DeviceTemplateEditor/trunk/src/UI/images/"
 max_depth = 5
 
-# Побудова графа
 G, color_map = build_graph(root_directory, max_depth)
 
-# Візуалізація графа
 pos = nx.spring_layout(G, iterations=200)
 colors = [color_map[data['level']] for node, data in G.nodes(data=True)]
 
@@ -55,3 +55,4 @@ nx.draw(
 )
 plt.title("Граф структури файлів та каталогів")
 plt.show()
+nx.write_gml(G, "test.gml")
